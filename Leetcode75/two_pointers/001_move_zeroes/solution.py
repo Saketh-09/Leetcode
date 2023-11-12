@@ -5,12 +5,9 @@ class Solution(object):
         :rtype: None Do not return anything, modify nums in-place instead.
         """
         n = len(nums)
+        snowBallSize = 0
         for i in range(n):
-            swapPointer = i
             if nums[i] == 0:
-                while swapPointer<n and nums[swapPointer] == 0:
-                    swapPointer += 1
-                if swapPointer<n:
-                    tmp = nums[i]
-                    nums[i] = nums[swapPointer]
-                    nums[swapPointer] = tmp
+                snowBallSize += 1
+            elif snowBallSize > 0:
+                nums[i-snowBallSize], nums[i] = nums[i], nums[i-snowBallSize]
