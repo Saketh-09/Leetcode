@@ -10,11 +10,12 @@ class Solution(object):
         for i in range(0,m):
             for j in range(0,n):
                 if board[i][j].isdigit() and board[i][j] in hashMap:
-                    if i in hashMap[board[i][j]][0] or j in hashMap[board[i][j]][1]:
+                    elem = hashMap[board[i][j]]
+                    if i in elem[0] or j in elem[1] or (i//3)*3+j//3 in elem[2]:
                         return False
                     hashMap[board[i][j]][0].add(i)
                     hashMap[board[i][j]][1].add(j)
+                    hashMap[board[i][j]][2].add((i//3)*3+(j//3))
                 elif board[i][j].isdigit():
-                    hashMap[board[i][j]] = [{i},{j}]
-        print(hashMap)
+                    hashMap[board[i][j]] = [{i},{j},{(i//3)*3+(j//3)}]
         return True
