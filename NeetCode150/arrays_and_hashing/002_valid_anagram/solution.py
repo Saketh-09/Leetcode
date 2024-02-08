@@ -26,4 +26,3 @@ class Solution(object):
             if val[0] != val[1]:
                 return False
         return True
-
