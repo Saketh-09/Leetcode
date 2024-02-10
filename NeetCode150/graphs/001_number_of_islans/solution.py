@@ -1,15 +1,5 @@
 class Solution(object):
-    def dfs(self, grid, i, j, m, n, visited):
-        if visited[i][j] == 0 and grid[i][j] == "1":
-            visited[i][j] = 1
-            if i - 1 >= 0:
-                self.dfs(grid, i - 1, j, m, n, visited)
-            if j - 1 >= 0:
-                self.dfs(grid, i, j - 1, m, n, visited)
-            if i + 1 < m:
-                self.dfs(grid, i + 1, j, m, n, visited)
-            if j + 1 < n:
-                self.dfs(grid, i, j + 1, m, n, visited)
+
 
     def numIslands(self, grid):
         """
@@ -18,9 +8,25 @@ class Solution(object):
         """
         m = len(grid)
         n = len(grid[0])
-        visited = [[0] * n] * m
+        visited =set()
+        def bfs(r,c):
+            q = collections.deque()
+            q.append((r,c))
+            d = [[0,1],[0,-1],[-1,0],[1,0]]
+            while q:
+                row, col = q.popleft()
+                for dr,dc in d:
+                    ri = dr+row
+                    ci = dc+col
+                    if (ri in range(m)) and (ci in range(n)) and grid[ri][ci]=='1' and (ri,ci) not in visited:
+                        q.append((ri,ci))
+                        visited.add((ri,ci))
+
         l = 0
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == "1":
-                    self.dfs(grid, i, j, m, n, visited)
+                if not (i,j) in visited and grid[i][j] == '1':
+                    bfs(i,j)
+                    l+=1
+
+        return l
