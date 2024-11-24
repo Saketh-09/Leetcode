@@ -1,0 +1,16 @@
+Preorder(root):
+    if root is NULL:
+        return
+
+    stack ← empty stack
+    stack.push(root)
+
+    while stack is not empty:
+        node ← stack.pop()
+        print(node.value)  // Process the current node
+
+        // Push right child first so that left child is processed first
+        if node.right is not NULL:
+            stack.push(node.right)
+        if node.left is not NULL:
+            stack.push(node.left)

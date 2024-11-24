@@ -1,0 +1,21 @@
+Postorder(root):
+    if root is NULL:
+        return
+
+    stack1 ← empty stack
+    stack2 ← empty stack
+    stack1.push(root)
+
+    while stack1 is not empty:
+        node ← stack1.pop()
+        stack2.push(node)  // Push nodes to the second stack in reverse order
+
+        if node.left is not NULL:
+            stack1.push(node.left)
+        if node.right is not NULL:
+            stack1.push(node.right)
+
+    // Process all nodes from the second stack
+    while stack2 is not empty:
+        node ← stack2.pop()
+        print(node.value)

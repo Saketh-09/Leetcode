@@ -1,0 +1,12 @@
+Inorder(root):
+    stack ← empty stack
+    current ← root
+
+    while stack is not empty OR current is not NULL:
+        if current is not NULL:
+            stack.push(current)
+            current ← current.left  // Move to the left subtree
+        else:
+            current ← stack.pop()  // Backtrack to the parent node
+            print(current.value)   // Process the current node
+            current ← current.right  // Move to the right subtree
