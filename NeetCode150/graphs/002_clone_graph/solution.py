@@ -6,25 +6,24 @@ class Node(object):
         self.neighbors = neighbors if neighbors is not None else []
 """
 
-
 class Solution(object):
     def cloneGraph(self, node):
         """
         :type node: Node
         :rtype: Node
         """
-        q = collections.deque()
-        q.append(node)
-        print(type(node))
-        res = []
-        visited = set()
+        if not node:
+            return
+        created = {}
+        q = collections.deque([node])
+        created[node.val] = Node(val=node.val)
         while q:
-            r = []
             n = q.popleft()
-            visited.add(n)
-            for nod in n.neighbors:
-                if nod not in visited:
-                    q.append(nod)
-                    r.append(nod.val)
-            res.append(r)
-        return res
+            copy = created[n.val]
+            for neighbor in n.neighbors:
+                if neighbor.val not in created.keys():
+                    q.append(neighbor)
+                    created[neighbor.val] = Node(neighbor.val)
+                copy.neighbors.append(created[neighbor.val])
+        return created[node.val]
+
